@@ -1,0 +1,36 @@
+# SQLite version 3.x
+#   gem install sqlite3
+#
+#   Ensure the SQLite 3 gem is defined in your Gemfile
+#   gem 'sqlite3'
+#
+default: &default
+  host: 172.17.0.2
+  adapter: postgresql
+  encoding: utf8
+  database: postgres
+  username: webuser
+  password: webuser1
+
+development:
+  host: 172.17.0.2
+  adapter: postgresql
+  encoding: utf8
+  database: postgres
+  username: webuser
+  password: webuser1
+
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+
+test:
+  host: 172.17.0.2
+  adapter: postgresql
+  encoding: utf8
+  database: postgres
+  pool: 5
+  username: webuser
+  password: webuser1
+

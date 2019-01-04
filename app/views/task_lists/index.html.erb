@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+<div class="col-6 list-main container">
+  <div class="row list-head">
+    <h1>My Tasks</h1>
+    <%= link_to 'New Task List', new_task_list_path %>
+  </div>
+  <div class="row list-body">
+    <ul class="list-group">
+      <% @task_lists.each do |list| %>
+        <li class="list-group-item">
+          <%= link_to list.name, list %>
+          <%# edit_task_list_path(list) %>
+          <span class="badge task-count"><%= list.tasks.count %></span>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+<!--br-->

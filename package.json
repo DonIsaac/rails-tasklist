@@ -1,0 +1,24 @@
+{
+  "name": "TaskListProject",
+  "private": true,
+  "dependencies": {},
+  "scripts": {
+    "app:build": "docker build -t ruby-tasklist-v2 -f Dockerfile .",
+    "preapp:start": "docker stop tasklistv2; docker container rm tasklistv2; rm app/tmp/pids/server.pid || true",
+    "app:start": "docker run --privileged --link tasklist-db:postgres -v $(pwd):/tasklist -p 3000:3000/tcp --name tasklistv2 -it ruby-tasklist-v2",
+    "app:inspect": "docker exec -it tasklistv2 /bin/bash",
+    "app:install": "docker exec -it tasklistv2 /tasklist/bin/bundle install && npm install",
+    "app:stats": "docker container inspect tasklistv2",
+    "db:build": "echo \"No database build script exists for this application.\"",
+    "predb:start": "docker stop tasklist-db; docker container rm tasklist-db || true",
+    "db:start": "docker run -p 5432:5432/tcp -v tasklistvol:/var/lib/postgresql/data: -e POSTGRES_USER=webuser -e POSTGRES_PASSWORD=webuser1 --name tasklist-db -d postgres",
+    "db:inspect": "psql -h localhost -U webuser",
+    "db:stats": "docker container inspect tasklist-db",
+    "db:rollback": "docker exec -it tasklistv2 /tasklist/bin/rails db:rollback",
+    "db:migrate": "docker exec -it tasklistv2 /tasklist/bin/rails db:migrate",
+    "build": "npm run db:build && npm run app:build",
+    "serve": "npm run build && npm run start",
+    "start": "npm run db:start && npm run app:start",
+    "preinstall": "bin/bundle install"
+  }
+}
