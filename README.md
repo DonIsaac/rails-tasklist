@@ -1,24 +1,19 @@
-# README
+# TaskList
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A simple task list application powered by Ruby on Rails. This application also uses
 
-Things you may want to cover:
+* Bootstrap
+* jQuery
+* Docker
+* CoffeeScript
+* SCSS
+* HTML
 
-* Ruby version
+## Setup
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```sh
+# Make sure you have Node, Ruby 2.5.3, and Docker installed
+docker pull postgres
+npm run serve
+# Go to localhost:3000 afterwards to see the site
+```
