@@ -3,7 +3,7 @@ class TaskListsController < ApplicationController
 
   # GET /task_lists
   # GET /task_lists.json
-  def index
+  def index # TODO: SELECT * FROM task_lists WHERE user_id = <authenticated_user_id>
     @task_lists = TaskList.all
   end
 
@@ -27,13 +27,12 @@ class TaskListsController < ApplicationController
   # POST /task_lists.json
   def create
     @task_list = TaskList.new(task_list_params)
-
     respond_to do |format|
       if @task_list.save
         format.html { redirect_to @task_list, notice: 'Task list was successfully created.' }
         format.json { render :show, status: :created, location: @task_list }
       else
-        format.html { render :new }
+        format.html { render :new, notice: @task_list.errors }
         format.json { render json: @task_list.errors, status: :unprocessable_entity }
       end
     end

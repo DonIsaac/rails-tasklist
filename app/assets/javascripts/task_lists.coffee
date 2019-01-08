@@ -1,6 +1,7 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
+###
 console.log('dis boi called :D')
 edit_form = (id, name) -> 
 			"""
@@ -12,7 +13,7 @@ edit_form = (id, name) ->
         			<button class="btn btn-default submit-edit" type="submit" role="submit-changes">
 						<span class="glyphicon glyphicon-ok"></span>
 					</button>
-					<button class="btn btn-default cancel-edit" type="button" role="cancel-changes" data-og-name="#{name}">
+					<button class="btn btn-default cancel-edit" type="button" role="cancel-changes" data-id="#{id}" data-og-name="#{name}">
 						<span class="glyphicon glyphicon-remove"></span>
 					</button>
       			</span>
@@ -67,7 +68,36 @@ task_crud = () ->
 			task.html( original_innerHTML(task_id, name, delete_url) )
 		
 		return 
+###
 
+toggle_view_mode = (isViewMode, id) ->
+	view = $("##{id}.task-display-view")
+	edit = $("##{id}.task-display-edit")
+	if isViewMode
+		view.show()
+		edit.hide()
+	else 
+		view.hide()
+		edit.show()
 	return
 
-document.addEventListener("turbolinks:load", task_crud)
+handle_clicks = -> 
+	$('.task-display-edit').hide()
+
+	$('.edit-task').click ->
+		id = $(this).attr('data-id')
+		toggle_view_mode(false, id)
+	
+	$('.cancel-edit').click ->
+		id = $(this).attr('data-id')
+		toggle_view_mode(true, id)
+
+	$('.status-checkbox').click ->
+		console.log(this)
+
+
+
+
+document.addEventListener("turbolinks:load", handle_clicks)
+		
+	

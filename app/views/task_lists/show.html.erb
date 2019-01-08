@@ -9,29 +9,56 @@
     <ul class="list-group">
       <% @tasks.each do |task| %>
         <li id="task-<%= task.id %>" class="list-group-item">
-          <span class="task-name"><%= task.name %></span>
-          <span class="dropdown manage-task">
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-              <span class="glyphicon glyphicon-menu-hamburger"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-              <li>
-                <a class="move-up" data-id="<%= task.id %>"><span class="glyphicon glyphicon-triangle-top"></span> Move Up</a>
-              </li>
-              <li>
-                <a class="move-down" data-id="<%= task.id %>" href="#"><span class="glyphicon glyphicon-triangle-bottom"></span> Move Down</a>
-              </li>
-              <li>
-                <a class="edit-task" data-id="<%= task.id %>"><span class="glyphicon glyphicon-cog"></span> Edit</a>
-              </li>
-              <li role="separator" class="divider"></li>
-              <li>
-              <%= link_to "#", :href => task_url(task, :list => params[:id]), :class => "task-delete-link", :method => :delete, :remote => true, "data-confirm".to_sym => "Are you sure you want to delete this task?" do%>
-                <span class="glyphicon glyphicon-trash"></span> Delete
-              <% end %>
-              </li>
-            </ul>
-          </span>
+          <div class="task-display-view" id="<%= task.id %>">
+          <%= semantic_form_for task do |f| %>
+          <%#= f.input :status, :as => :check_boxes, :label => false, :collection => [:completed] %>
+          <%= f.check_box :status, :remote => true %>
+          <%#  %>
+          <% end %>
+            <!--form action="<%= task_url(task) %>", method="post", data-remote="true" style="display: inline;">
+              <input type="hidden" name="_method" value="patch">
+              <input class="status-checkbox" type="checkbox" name="status" value="<%= task.status == :completed ? 1 : 0 %>" data-url="<%= task_url(task) %>" data-remote="true" data-method="patch">
+            </form-->
+            <span class="task-name"><%= task.name %></span>
+            <span class="dropdown manage-task">
+              <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <span class="glyphicon glyphicon-menu-hamburger"></span>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li>
+                  <a class="move-up" data-id="<%= task.id %>"><span class="glyphicon glyphicon-triangle-top"></span> Move Up</a>
+                </li>
+                <li>
+                  <a class="move-down" data-id="<%= task.id %>" href="#"><span class="glyphicon glyphicon-triangle-bottom"></span> Move Down</a>
+                </li>
+                <li>
+                  <a class="edit-task" data-id="<%= task.id %>"><span class="glyphicon glyphicon-cog"></span> Edit</a>
+                </li>
+                <li role="separator" class="divider"></li>
+                <li>
+                  <%= link_to "#", :href => task_url(task, :list => params[:id]), :class => "task-delete-link", :method => :delete, :remote => true, "data-confirm".to_sym => "Are you sure you want to delete this task?" do%>
+                    <span class="glyphicon glyphicon-trash"></span> Delete
+                  <% end %>
+                </li>
+              </ul>
+            </span>
+          </div>
+          <div class="task-display-edit" id="<%= task.id %>">
+            <form action="/tasks/<%= task.id %>" method="post" data-remote="true">
+              <input name="_method" type="hidden" value="put" />
+              <div class="input-group">
+                <input type="text" class="form-control" value="<%= task.name %>" autofocus name="task[name]">
+                <span class="input-group-btn">
+                  <button class="btn btn-default submit-edit" type="submit" role="submit-changes">
+                    <span class="glyphicon glyphicon-ok"></span>
+                  </button>
+                  <button class="btn btn-default cancel-edit" type="button" role="cancel-changes" data-id="<%= task.id %>" data-og-name="#{name}">
+                    <span class="glyphicon glyphicon-remove"></span>
+                  </button>
+                </span>
+              </div>
+            </form>
+          </div>
         </li>
       <% end %>
     </ul>

@@ -19,8 +19,12 @@ gem 'mini_racer', platforms: :ruby
 gem 'bootstrap-sass', '~> 3.4.0'
 gem 'jquery-rails'
 gem 'popper_js', '~> 1.14', '>= 1.14.5'
-#EqualLevel table gem
+# EqualLevel table gem
 gem 'grapple'
+# Password encryption
+gem 'bcrypt'
+# Adds list functionality to TaskList
+gem 'acts_as_list'
 # Form Builder
 gem 'formtastic', '~> 3.1', '>= 3.1.5'
 # Use CoffeeScript for .coffee assets and views
