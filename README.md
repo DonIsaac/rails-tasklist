@@ -151,9 +151,18 @@ Other available scripts can be found in `package.json`.
 
 #### User Views
 
-**`/admin`**
+**`views/task_list/index.html.erb`**
+
+* Displays a title saying `My Tasks` at the top of the page :white_check_mark:
+* List the user's `TaskLists` sorted alphabetically by name :warning:
+* For each `TaskList`, display its `name` and the number of `Tasks` associated with it :white_check_mark:
+* Uses Bootstrap's `List Group Component` :white_check_mark:
+* Displays a link above the list of `TaskLists` to create a new `TaskList` :white_check_mark:
+* Clicking the name of a `TaskList` will redirect to `views/task_list/show.html.erb` :white_check_mark: 
 
 #### Admin Views
+
+**`/admin/task_list/`**
 
 ### Required Technology
 
