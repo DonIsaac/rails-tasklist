@@ -46,10 +46,11 @@ ActiveRecord::Schema.define(version: 2019_01_07_195300) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name", limit: 32, default: "Anonymous User"
-    t.string "username", limit: 64, null: false
-    t.string "password_digest", null: false
-    t.integer "status", default: 0, null: false
+    t.string "login", limit: 100, null: false
+    t.string "crypted_password", limit: 40, null: false
+    t.string "salt", limit: 40, null: false
+    t.string "email", limit: 100, null: false
+    t.string "firstname", limit: 100, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
