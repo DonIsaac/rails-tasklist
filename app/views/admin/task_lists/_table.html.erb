@@ -1,0 +1,29 @@
+<%
+	columns = [
+		{ label: 'Name', sort: "name" },
+		{ label: 'Created At', sort: "created_at" },
+		{ label: '' },
+		{ label: '' },
+		{ label: '' }
+	]
+
+	actions = [
+		{ label: 'New Task List', url: new_task_path }
+	]
+%>
+<%= table_for(columns, task_lists) do |t|%>
+	<%= t.header do %>
+		<%= t.toolbar do %>
+			<%= t.actions actions %>
+			<%= t.search_form(form_options: {method: 'get'}) %>
+		<% end %>
+		<%= t.column_headings %>
+	<% end %>
+	<%= t.body do |list| %>
+		<td><%= list.name %></td>
+		<td><%= list.created_at %></td>
+		<td><%= link_to 'Show', list %></td>
+		<td><%= link_to 'Edit', edit_task_path(list) %></td>
+		<td><%= link_to 'Destroy', list, confirm: 'Are you sure?', method: :delete %></td>
+	<% end %>
+<% end %>

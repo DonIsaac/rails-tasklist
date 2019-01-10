@@ -4,14 +4,14 @@ class TaskListsController < ApplicationController
   # GET /task_lists
   # GET /task_lists.json
   def index # TODO: SELECT * FROM task_lists WHERE user_id = <authenticated_user_id>
-    @task_lists = TaskList.all
+    @task_lists = TaskList.all.order(:name)
   end
 
   # GET /task_lists/1
   # GET /task_lists/1.json
   def show
     # @task_list = TaskList.find(params[:id])
-    @tasks = TaskList.find(params[:id]).tasks.order(:name)
+    @tasks = TaskList.find(params[:id]).tasks
   end
 
   # GET /task_lists/new
@@ -29,10 +29,15 @@ class TaskListsController < ApplicationController
     @task_list = TaskList.new(task_list_params)
     respond_to do |format|
       if @task_list.save
-        format.html { redirect_to @task_list, notice: 'Task list was successfully created.' }
+        flash[:notice] = ['Task list was successfully created.']
+        format.html { redirect_to @task_list }
         format.json { render :show, status: :created, location: @task_list }
       else
-        format.html { render :new, notice: @task_list.errors }
+        format.html do 
+          flash[:error] = @task_list.errors.messages.values
+          render :new, error: @task_list.errors
+
+        end
         format.json { render json: @task_list.errors, status: :unprocessable_entity }
       end
     end

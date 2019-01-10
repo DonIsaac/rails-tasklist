@@ -21,6 +21,8 @@ gem 'jquery-rails'
 gem 'popper_js', '~> 1.14', '>= 1.14.5'
 # EqualLevel table gem
 gem 'grapple'
+# SQL Search Pagination
+gem 'will_paginate', '~> 3.1.0'
 # Password encryption
 gem 'bcrypt'
 # Adds list functionality to TaskList

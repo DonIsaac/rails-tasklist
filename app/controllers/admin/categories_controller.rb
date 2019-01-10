@@ -1,4 +1,5 @@
 module Admin
-	class CategoriesAdminController < CategoriesAdminController
+	class CategoriesController < ::CategoriesController
+		# TODO: Use mixins?
 	end
 end

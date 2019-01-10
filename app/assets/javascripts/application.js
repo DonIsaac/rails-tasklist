@@ -12,5 +12,7 @@
 //
 //= require rails-ujs
 //= require activestorage
+//= require grapple
+//= require grapple-jquery
 //= require turbolinks
 //= require_tree .

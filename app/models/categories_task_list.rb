@@ -6,10 +6,6 @@ class CategoriesTaskList < ApplicationRecord
 	#	* category: Category => category_id: foreign key
 
 	# Associations
-	has_one :task_list
-	has_one :category
-
-	# Validations
-	validates :task_list, presence: true
-	validates :category, presence: true
+	has_one :task_list, validate: { presence: true }
+	has_one :category, validate: { presence: true }
 end

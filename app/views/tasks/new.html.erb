@@ -4,9 +4,9 @@
 <%#= render 'form', task: @task %>
  <%= semantic_form_for @task do |f| %>
     <%= f.inputs :name, :description %>
-	<%= f.input :task_list_id, :as => :hidden, :input_html => {:value => params[:list]} %>
+	<%= f.input :task_list_id, :as => :hidden %> <%#, :input_html => {:value => params[:list]} %>
     <%= f.actions :submit, :cancel %>
 <% end %>
 
-<%= link_to 'Back', task_list_url(params[:list]) %>
+<%= link_to 'Back', task_list_url(@task.task_list_id) %>
 <%#= link_to 'Back', :back %>

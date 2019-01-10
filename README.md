@@ -24,9 +24,9 @@ Other available scripts can be found in `package.json`.
 
 ### Key
 
-* :x: = requirement has not implemented
-* :warning: = requirement implementation is incomplete and/or buggy, not working as intended
-* :white_check_mark: = requirement is implemented and works as intended
+* :x: = requirement/feature has not implemented
+* :warning: = requirement/feature implementation is incomplete and/or buggy, not working as intended
+* :white_check_mark: = requirement/feature is implemented and works as intended
 
 ### Models
 
@@ -37,7 +37,8 @@ Other available scripts can be found in `package.json`.
 * `id:integer`, primary key :white_check_mark:
 * `name:string` :white_check_mark:
 * `user_id:integer`, foreign key :white_check_mark:
-* `timestamp:datetime (created_at, updated_at)` :white_check_mark:
+* `created_at:datetime` :white_check_mark:
+* `updated_at:datetime` :white_check_mark:
 
 ##### Associations
 
@@ -47,8 +48,8 @@ Other available scripts can be found in `package.json`.
 
 ##### Validations
 
-* `user` must be reference to user, can't be null :warning:
-* `name` must be string, can't be null, 100 char limit :white_check_mark:
+* `user` must be reference to user, not null :warning:
+* `name` must be string, not null, 100 char limit :white_check_mark:
 
 ##### Features
 
@@ -66,7 +67,8 @@ Other available scripts can be found in `package.json`.
 * `status:string`, defaults to `10` :white_check_mark:
 * `description:text` :white_check_mark:
 * `position:integer` :white_check_mark:
-* `timestamp:datetime (created_at, updated_at)` :white_check_mark:
+* `created_at:datetime` :white_check_mark:
+* `updated_at:datetime` :white_check_mark:
 
 ##### Associations
 
@@ -74,9 +76,9 @@ Other available scripts can be found in `package.json`.
 
 ##### Validations
 
-* `task_list_id` must be an integer, can't be null :white_check_mark:
+* `task_list_id` must be an integer, not null :white_check_mark:
 * `status` must be an integer, must be in the `statuses` key set :white_check_mark:
-* `name` must be a string, can't be null, 100 char limit :white_check_mark:
+* `name` must be a string, not null, 100 char limit :white_check_mark:
 * `description` must be a string, 25,000 char limit :white_check_mark:
 * `position` must be an integer, cannot be null :white_check_mark:
 
@@ -87,13 +89,14 @@ Other available scripts can be found in `package.json`.
 
 ----
 
-#### Categories
+#### Category
 
 ##### Database Columns
 
 * `id:integer` primary key :white_check_mark:
 * `name:string` :white_check_mark:
-* `timestamp:datetime` (created_at, updated_at) :white_check_mark:
+* `created_at:datetime` :white_check_mark:
+* `updated_at:datetime` :white_check_mark:
 
 ##### Associations
 
@@ -101,7 +104,7 @@ Other available scripts can be found in `package.json`.
 
 ##### Validations
 
-* `name` must be a string, can't be null, 100 char limit :white_check_mark:
+* `name` must be a string, not null, 100 char limit :white_check_mark:
 
 ##### Features
 
@@ -120,6 +123,39 @@ Other available scripts can be found in `package.json`.
 
 * `category` not null, points to a valid category :warning:
 * `task_list` not null, points to a valid task list :warning:
+
+----
+
+#### User
+
+##### Database Columns
+
+* `id:integer` primary key :x:
+* `username:string` :x:
+* `pass_digest:string` :x:
+* `salt:integer` :x:
+* `created_at:datetime` :x:
+* `updated_at:datetime` :x:
+
+##### Associations
+
+* `has_many` task_lists :x:
+
+##### Validations
+
+* `username` is string, not null, unique, alphanumeric, 32 char limit :x:
+* `password` *(pre-hash)* is string, not null, contains >= 1 uppercase letter and symbol :x:
+* `password_confirm` is string, matches `password` :x:
+* `salt` is integer, not null :x:
+
+##### Features
+
+* Overrides the `User.new` method to accept a `:password` parameter, hashes it, then sets the resulting `digest` and `salt` as instance properties which will then be saved to the database :x:
+  * ```ruby
+	  @user = User.new :username => "johndoe32", :password => "Keyboard_cat"
+	  # => { @username: "johndoe32", @pass_digest: "T-\xDF\x1A\xEC\xE\...", @salt: "9A5h7xK4" }
+    ```
+*
 
 ----
 
@@ -156,9 +192,11 @@ Other available scripts can be found in `package.json`.
 * Displays a title saying `My Tasks` at the top of the page :white_check_mark:
 * List the user's `TaskLists` sorted alphabetically by name :warning:
 * For each `TaskList`, display its `name` and the number of `Tasks` associated with it :white_check_mark:
+* The list of `TaskLists` will be sorted alphabetically :white_check_mark:
 * Uses Bootstrap's `List Group Component` :white_check_mark:
 * Displays a link above the list of `TaskLists` to create a new `TaskList` :white_check_mark:
 * Clicking the name of a `TaskList` will redirect to `views/task_list/show.html.erb` :white_check_mark: 
+* Displays error messages using a bootstrap alerts and `flash[:msg]` at the top of the screen :x:
 
 #### Admin Views
 
@@ -166,3 +204,7 @@ Other available scripts can be found in `package.json`.
 
 ### Required Technology
 
+* The project must utilize:
+  * `Bootstrap 3.4.0` :white_check_mark:
+  * `grapple` gem :white_check_mark:
+  * `formtastic` gem :white_check_mark:

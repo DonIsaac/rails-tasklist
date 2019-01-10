@@ -1,8 +1,8 @@
-<p id="notice"><%= notice %></p>
+<%= render partial: "shared/notice" %>
 <div class="col-6 list-main container">
   <div class="row list-head">
     <h1><%= @task_list.name %></h1>
-    <%= link_to 'New Task', new_task_path(list: @task_list) %>
+    <%= link_to 'New Task', new_task_path(task_list_id: @task_list) %>
     <%= link_to 'My Tasks', task_lists_path %>
   </div>
   <div class="row list-body">
@@ -10,15 +10,10 @@
       <% @tasks.each do |task| %>
         <li id="task-<%= task.id %>" class="list-group-item">
           <div class="task-display-view" id="<%= task.id %>">
-          <%= semantic_form_for task do |f| %>
-          <%#= f.input :status, :as => :check_boxes, :label => false, :collection => [:completed] %>
-          <%= f.check_box :status, :remote => true %>
-          <%#  %>
-          <% end %>
-            <!--form action="<%= task_url(task) %>", method="post", data-remote="true" style="display: inline;">
-              <input type="hidden" name="_method" value="patch">
-              <input class="status-checkbox" type="checkbox" name="status" value="<%= task.status == :completed ? 1 : 0 %>" data-url="<%= task_url(task) %>" data-remote="true" data-method="patch">
-            </form-->
+            <form class="task-completed" action="<%= task_url(task) %>", method="post", data-remote="true" style="display: inline;">
+              <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+              <%= check_box_tag 'task[status]', :completed, task.status == "completed", class: "status-checkbox"%>
+            </form>
             <span class="task-name"><%= task.name %></span>
             <span class="dropdown manage-task">
               <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -26,10 +21,10 @@
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                 <li>
-                  <a class="move-up" data-id="<%= task.id %>"><span class="glyphicon glyphicon-triangle-top"></span> Move Up</a>
+                  <a class="move-up" data-href= "<%= move_task_url(task, :up) %>" data-count="1"><span class="glyphicon glyphicon-triangle-top"></span> Move Up</a>
                 </li>
                 <li>
-                  <a class="move-down" data-id="<%= task.id %>" href="#"><span class="glyphicon glyphicon-triangle-bottom"></span> Move Down</a>
+                  <a class="move-down" data-href="<%= move_task_url(task, :down) %>" data-count="1"><span class="glyphicon glyphicon-triangle-bottom"></span> Move Down</a>
                 </li>
                 <li>
                   <a class="edit-task" data-id="<%= task.id %>"><span class="glyphicon glyphicon-cog"></span> Edit</a>

@@ -1,4 +1,4 @@
 module Admin
-	class TasksAdminController < TasksAdminController
+	class TasksController < ::TasksAdminController
 	end
 end

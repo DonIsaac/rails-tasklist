@@ -8,7 +8,8 @@ class Category < ApplicationRecord
 
 	# Associations
 	# belongs_to :categories_task_list
-	has_many :task_lists, :through => :categories_task_list
+	# TODO: needs :through?
+	has_many :task_lists#, :through => :categories_task_list
 
 	# Validations
 	validates :name, presence: true, length: { maximum: 100, too_long: "The name must be fewer than 100 characters." }

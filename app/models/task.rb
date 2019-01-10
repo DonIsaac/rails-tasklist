@@ -11,7 +11,7 @@ class Task < ApplicationRecord
 	#	* updated_at: timestamp => updated_at
 
 	# Associations
-	belongs_to :task_list
+	belongs_to :task_list, validate: { presence: true }
 	acts_as_list scope: :task_list
 	
 
@@ -19,8 +19,8 @@ class Task < ApplicationRecord
 	enum status: { created: 10, completed: 20, deleted: 30 }
 
 	# Validations
-	validates :task_list, presence: true
 	validates :name, presence: { message: "Task name cannot be empty."}, length: { maximum: 100, too_long: "The name must be fewer than 100 characters." }
+	# TODO: Necessary?
 	validates :status, :inclusion => { :in => statuses.keys, message: "Invalid status." }, presence: { message: "A status must be provided."}
 	validates :description, length: { maximum: 25000, too_long: "The description must be fewer than 25,000 characters."}
 	validates :position, numericality: { only_integer: true }

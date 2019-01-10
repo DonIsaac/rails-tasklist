@@ -11,7 +11,8 @@ class TaskList < ApplicationRecord
 	# Associations
 	has_many :tasks, -> { order(position: :asc) }, dependent: :destroy
 	# belongs_to :categories_task_list
-	has_many :categories, :through => :categories_task_list
+	# TODO: Is through needed?
+	has_many :categories#, :through => :categories_task_list
 	# belongs_to :user
 
 	# Validations
