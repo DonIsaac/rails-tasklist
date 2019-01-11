@@ -1,0 +1,8 @@
+<%= form_with scope: :session, url: sessions_path do |form| %>
+	<%= form.label :login %>
+	<%= form.text_field :login %>
+	<%= form.label :password %>
+	<%= form.password_field :password %>
+	<br />
+	<%= form.submit 'Log In' %>
+<% end %>

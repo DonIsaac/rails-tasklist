@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 2019_01_07_195300) do
     t.string "salt", limit: 40, null: false
     t.string "email", limit: 100, null: false
     t.string "firstname", limit: 100, null: false
+    t.string "lastname", limit: 100, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

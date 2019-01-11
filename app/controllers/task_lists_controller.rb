@@ -4,7 +4,7 @@ class TaskListsController < ApplicationController
   # GET /task_lists
   # GET /task_lists.json
   def index # TODO: SELECT * FROM task_lists WHERE user_id = <authenticated_user_id>
-    @task_lists = TaskList.all.order(:name)
+    @task_lists = TaskList.where(user_id: session[:user_id]).order(:name)
   end
 
   # GET /task_lists/1

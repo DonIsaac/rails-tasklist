@@ -17,11 +17,12 @@ Rails.application.routes.draw do
 	get '/user/new', to: 'users#new', as: 'new_user'
 	post '/user', to: 'users#create', as: 'users'
 
-	get '/user/session/new', to: 'sessions#new', as: 'new_session'
+	get '/user/sign_in', to: 'sessions#new', as: 'new_session'
 	post '/user/session', to: 'sessions#create', as: 'sessions'
-	delete '/user/session/:id', to: 'sessions#destroy', as: 'session'
+	delete '/user/sign_out', to: 'sessions#destroy', as: 'session'
 
 
-	root 'task_lists#index'
+	#root 'task_lists#index'
+	root to: 'welcome#index'
 	# For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

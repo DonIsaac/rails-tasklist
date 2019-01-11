@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 	
 	include AuthenticatedSystem
 		
-	before_filter :check_session_expiration
+	before_action :check_session_expiration
 
 protected
 
@@ -17,7 +17,7 @@ protected
 		
 		# If the user is logged in make sure their session hasn't expired
 		if logged_in?
-			if session.has_key?(:expires_at) && (session[:expires_at] - Time.now).to_i <= 0
+			if session.has_key?(:expires_at) && (Time.parse(session[:expires_at]) - Time.now).to_i <= 0
 				if User.guest_user_authorized?(params[:controller], params[:action]) # TODO: this needs to be changed
 					# If the guest user is authorized for the current action,
 					# we need to let the request go through without the session data

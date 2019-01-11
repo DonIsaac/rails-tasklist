@@ -1,7 +1,52 @@
+html {
+  min-height: 100%;
+}
+body {
+  padding-top: 50px;
+  margin: 0 0 100px 0
+}
+
+h1, h2, h3, h4, h5, h6, p, li {
+	font-family: verdana, arial, helvetica, sans-serif
+
+}
+
+
+header {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+}
+
+footer {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+  border-top: 1px solid black;
+  height: 100px;
+	margin-top: 2em;
+	margin-bottom: 1em;
+}
+footer > .row {
+	text-align: center;
+}
+.social-icon {
+	display: inline-block;
+	padding: 1%;
+}
+.feature-box {
+}
+.feature-box > h3 {
+	text-align: center;
+}
+
+/*
 body {
   background-color: #fff;
   color: #333;
-  margin: 33px;
+  // margin: 33px;
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
   line-height: 18px;
@@ -9,8 +54,8 @@ body {
 
 p, ol, ul, td {
   font-family: verdana, arial, helvetica, sans-serif;
-  font-size: 13px;
-  line-height: 18px;
+  font-size: 15px;
+  line-height: 21px;
 }
 
 pre {
@@ -82,3 +127,8 @@ div {
 label {
   display: block;
 }
+
+.label {
+  color: #000;
+}
+*/
