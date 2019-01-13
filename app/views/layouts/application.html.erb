@@ -11,11 +11,12 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-  <%= render partial: "shared/header" %>
+   
   <body>
-    
+    <%= render partial: "shared/header" %>
+    <div id="main">
     <%= yield %>
-    
+    </div>
+    <%= render partial: "shared/footer" %>
   </body>
-  <%= render partial: "shared/footer" %>
 </html>
