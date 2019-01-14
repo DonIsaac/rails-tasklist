@@ -4,14 +4,13 @@ class SessionsController < ApplicationController
 
 	def create
 		respond_to do |format|
-			logger.debug "\n\nsessions#create hit\n\n"
+			logger.debug 'create called'
 			sessions_params = params.require(:session).permit(:login, :password)
 			begin
-			@user = User.find_by login: sessions_params[:login]
+				@user = User.find_by login: sessions_params[:login]
 			rescue
 			end
 			if !@user
-				logger.debug "no user found"
 				format.html do 
 					flash[:error] = "User not found"
 					render :new
@@ -20,17 +19,19 @@ class SessionsController < ApplicationController
 				return
 			end
 
-			logger.debug @user.inspect
-			logger.debug sessions_params[:password]
 			if @user.authenticated? sessions_params[:password]
-				current_user= @user
+				logger.debug 'user authenticated'
+				logger.debug @user.inspect
+				logger.debug current_user=(@user).inspect
+				logger.debug session[:user_id]
+				logger.debug current_user().inspect
+				logger.debug @current_user.inspect
 				format.html do  
-					logger.info "logged in"
-					redirect_to task_lists_url, notice: "Successfully logged in!"
+					redirect_to task_lists_url(user_id: @user[:id]), notice: "Successfully logged in!"
 				end
 			else
+				logger.debug 'user authenticated'
 				format.html do 
-					logger.info "incorrect password"
 					flash.now[:error] =  ["Incorrect password."]
 					render :new
 				end

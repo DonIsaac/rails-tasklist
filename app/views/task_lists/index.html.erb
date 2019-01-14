@@ -1,8 +1,11 @@
-<p id="notice"><%= notice %></p>
+<%= render partial: 'shared/notice' %>
 <div class="col-6 list-main container">
   <div class="row list-head">
     <h1>My Tasks</h1>
-    <%= link_to 'New Task List', new_task_list_path %>
+    <%#= link_to 'New Task List', new_task_list_path %>
+    <a data-toggle="modal" data-target="#newTaskListModal">
+      New Task List
+    </a>
   </div>
   <div class="row list-body">
     <ul class="list-group">
@@ -14,6 +17,37 @@
         </li>
       <% end %>
     </ul>
+  </div>
+</div>
+
+<div class="modal fade" id="newTaskListModal" tabindex="-1" role="dialog" aria-labelledby="newTaskList">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h3 class="modal-title" id="newTaskList">New Task List</h3>
+      </div>
+      <%= form_for TaskList.new do |form| %>
+      <div class="modal-body">
+        
+          <div class="form-group">
+          <%= form.label :name %>
+          <%= form.text_field :name, class: 'form-control' %>
+          </div>
+          <%#= form.input :user, as: :select, collection: User.all, label: false %>
+          <div class="form-group">
+          <%= form.label :user_id %>
+          <%= form.select :user_id, options_from_collection_for_select(User.all, "id", "login"), { include_blank: true }, { class: 'form-control' } %>
+          </div>
+          <%#=  %>
+       
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Create</button>
+      </div>
+       <% end %>
+    </div>
   </div>
 </div>
 <!--br-->

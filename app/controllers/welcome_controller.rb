@@ -1,7 +1,6 @@
 class WelcomeController < ApplicationController
 	def index
-		if logger.debug logged_in?
-			session[:user_id] = nil
-		end
+		logger.debug current_user
+		logger.debug logged_in?
 	end
 end

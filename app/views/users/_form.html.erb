@@ -1,4 +1,23 @@
 <%= semantic_form_for @user do |f| %>
-	<%= f.inputs :login, :password, :email, :firstname, :lastname %>
-	<%= f.actions :submit, :cancel %>
+	<%= f.inputs do %>
+		<div class="form-group">
+		<%= f.input :login, label: false, input_html: { class: 'form-control', placeholder: ' Login' } %>
+		</div>
+		<div class="form-group">
+		<%= f.input :password, label: false, input_html: { class: 'form-control', placeholder: ' Password' } %>
+		</div>
+		<div class="form-group">
+		<%= f.input :email, label: false, input_html: { class: 'form-control', placeholder: ' E-Mail Address' } %>
+		</div>
+		<div class="form-group">
+		<%= f.input :firstname, label: false, input_html: { class: 'form-control', placeholder: ' First Name' } %>
+		</div>
+		<div class="form-group">
+		<%= f.input :lastname, label: false, input_html: { class: 'form-control', placeholder: ' Last Name' } %>
+		</div>
+		<div class="form-group">
+	<% end %>
+	<%= f.actions do  %>
+		<%= f.action :submit, button_html: { class: 'btn btn-primary btn-lg', style: 'padding: 7px' } %>
+	<% end %>
 <% end %>

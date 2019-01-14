@@ -15,7 +15,10 @@ module AuthenticatedSystem
 
     # Store the given user id in the session.
     def current_user=(new_user)
+      logger.debug "new_user: #{new_user.inspect}"
+      raise RuntimeError new_user.inspect
       session[:user_id] = new_user ? new_user[:id] : nil
+      session[:expires_at] = Time.current().advance(minutes: 20)
       @current_user = new_user || false
     end
 

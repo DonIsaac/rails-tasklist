@@ -7,27 +7,32 @@ class ApplicationController < ActionController::Base
 	
 	include AuthenticatedSystem
 		
-	before_action :check_session_expiration
+	# before_action :check_session_expiration
 
 protected
 
 	def check_session_expiration
 		# Don't check the session expiration for the logout action
 		return true if params[:controller] == 'sessions' && params[:action] == 'destroy'
-		
+		logger.debug "\nsession:"
+		session[:expires_at]
+		logger.debug Time.parse(session[:expires_at])
+		logger.debug Time.now
+		logger.debug (Time.parse(session[:expires_at]) - Time.now).to_i
+		logger.debug session[:user_id]
 		# If the user is logged in make sure their session hasn't expired
 		if logged_in?
-			if session.has_key?(:expires_at) && (Time.parse(session[:expires_at]) - Time.now).to_i <= 0
+			if session.has_key?(:expires_at) && (session[:expires_at] - Time.current).to_i <= 0
 				if User.guest_user_authorized?(params[:controller], params[:action]) # TODO: this needs to be changed
 					# If the guest user is authorized for the current action,
 					# we need to let the request go through without the session data
 					# This happens when a users session expires and they try to punchout
 					# to the application
-					destroy_session()
+					# destroy_session()
 					return true
 				else
 					# Session has expired
-					redirect_to(logout_path(:expired => 1))
+					redirect_to(root_url(:expired => 1))
 					return false
 				end
 			else

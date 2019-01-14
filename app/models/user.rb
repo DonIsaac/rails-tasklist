@@ -23,10 +23,6 @@ end
 
 # Encrypts some data with the salt.
 def self.encrypt(password, salt)
-	logger.debug "inside self.encrypt"
-	logger.debug "self.encrypt#password: #{password}"
-	logger.debug "self.encrypt#salt: #{salt}"
-	logger.debug "hexdigest of #{"--#{salt}--#{password}--"}"
 	Digest::SHA1.hexdigest("--#{salt}--#{password}--")
 end
 
@@ -36,9 +32,6 @@ def encrypt(password)
 end
 
 def authenticated?(password)
-	logger.debug "inside authenticated?"
-	logger.debug "authenticated?:crypted_password: #{crypted_password}"
-	logger.debug "authenticated?encrypt(password): #{encrypt(password)}"
 	crypted_password == encrypt(password)
 end
 

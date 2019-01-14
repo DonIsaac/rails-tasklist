@@ -1,0 +1,5 @@
+1) Debugged why session[:user_id] was not being set. A few problems were identified, but the main one has not been fixed yet.
+2) Created New TaskList modal on tasklist#index
+3) Read Bootstrap's CSS documentation (as opposed to components and JavaScript)
+4) Re-wrote sign-in page
+5) re-wrote sign-up page
