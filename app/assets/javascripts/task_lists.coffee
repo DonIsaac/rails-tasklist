@@ -9,6 +9,10 @@ toggle_view_mode = (isViewMode, id) ->
 		edit.show()
 	return
 
+create_resource = (method) ->
+	fromForm = !$(this).attr('data-href') # true if no 'data-href' attr, false otherwise
+	url = ""
+
 handle_clicks = -> 
 	$('.task-display-edit').hide()
 
@@ -35,7 +39,7 @@ handle_clicks = ->
 			$('#notice').html("Successfully moved the task")
 		.fail (xhr, status, err) ->
 			console.error(xhr)
-			$('p#notice').html("#{status} #{err} - #{xhr.responseText}")
+			$('#notice').html("#{status} #{err} - #{xhr.responseText}")
 
 	# Update completion status check boxes (AJAX)
 	$('input.status-checkbox').click ->
@@ -56,6 +60,12 @@ handle_clicks = ->
 		.fail (xhr, status, err) ->
 			console.error(xhr)
 			$('p#notice').html("#{status} #{err} - #{xhr.responseText}")
+	
+	$('.create').click ->
+		
+
+	
+
 
 	###
 	$('form.task-completed').submit (e) ->

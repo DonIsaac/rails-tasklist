@@ -13,7 +13,7 @@ class TaskList < ApplicationRecord
 	belongs_to :user
 	# belongs_to :categories_task_list
 	# TODO: Is through needed?
-	has_many :categories#, :through => :categories_task_list
+	has_and_belongs_to_many :categories#, :through => :categories_task_list
 	# belongs_to :user
 
 	# Validations

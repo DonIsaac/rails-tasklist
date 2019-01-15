@@ -4,11 +4,15 @@ class TaskListsController < ApplicationController
   # GET /task_lists
   # GET /task_lists.json
   def index # TODO: SELECT * FROM task_lists WHERE user_id = <authenticated_user_id>
-    logger.debug @current_user
-    logger.debug logged_in?
-    logger.debug session[:user_id]
-    # @task_lists = TaskList.where(user_id: session[:user_id]).order(:name)
-    @task_lists = TaskList.all.order(:name)
+    @task_lists = TaskList.where(user_id: session[:user_id]).order(:name)
+    if !self.logged_in?
+      respond_to do |format|
+        flash[:error] = "You must be logged in to go to that page"
+        format.html { redirect_to new_session_url }
+        format.json { render "sessions/new", status: :unauthorized, location: :session}
+      end
+    end
+    #@task_lists = TaskList.all.order(:name)
   end
 
   # GET /task_lists/1
@@ -31,10 +35,12 @@ class TaskListsController < ApplicationController
   # POST /task_lists.json
   def create
     @task_list = TaskList.new(task_list_params)
+    @task_list[:user_id] = current_user().id
+    logger.debug 'task_lists#create called'
+    logger.debug @task_list.inspect
     respond_to do |format|
       if @task_list.save
-        flash[:notice] = ['Task list was successfully created.']
-        format.html { redirect_to @task_list }
+        format.html { redirect_to @task_list, notice: 'Task list was successfully created' }
         format.json { render :show, status: :created, location: @task_list }
       else
         format.html do 
@@ -79,6 +85,6 @@ class TaskListsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_list_params
-      params.require(:task_list).permit(:name, :user_id)
+      params.require(:task_list).permit(:name)
     end
 end

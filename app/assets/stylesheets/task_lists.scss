@@ -12,10 +12,12 @@ h1 {
 	font-size: 3.25em;
 }
 
-.list-head a {
-	font-size: 1.25em;
-	float: right;
-	padding-left: 1%;
+.list-head .navbar-header > a {
+	//font-size: 1.25em;
+	//float: right;
+	//padding-left: 1%;
+	font-weight: bold;
+	font-size: 1.75em;
 }
 .list-group-item {
 	line-height: normal;
@@ -38,4 +40,8 @@ h1 {
 	//padding: 3px 10px;
 	//border-radius: 30%;
 	//float: right;
+}
+
+.list-main {
+	margin-top: 1rem;
 }

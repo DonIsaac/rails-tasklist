@@ -3,13 +3,13 @@ class SessionsController < ApplicationController
 	end
 
 	def create
+		
+		sessions_params = params.require(:session).permit(:login, :password)
+		begin
+			@user = User.find_by login: sessions_params[:login]
+		rescue
+		end
 		respond_to do |format|
-			logger.debug 'create called'
-			sessions_params = params.require(:session).permit(:login, :password)
-			begin
-				@user = User.find_by login: sessions_params[:login]
-			rescue
-			end
 			if !@user
 				format.html do 
 					flash[:error] = "User not found"
@@ -20,17 +20,11 @@ class SessionsController < ApplicationController
 			end
 
 			if @user.authenticated? sessions_params[:password]
-				logger.debug 'user authenticated'
-				logger.debug @user.inspect
-				logger.debug current_user=(@user).inspect
-				logger.debug session[:user_id]
-				logger.debug current_user().inspect
-				logger.debug @current_user.inspect
+				self.current_user=(@user)
 				format.html do  
-					redirect_to task_lists_url(user_id: @user[:id]), notice: "Successfully logged in!"
+					redirect_to task_lists_url, notice: "Successfully logged in"
 				end
 			else
-				logger.debug 'user authenticated'
 				format.html do 
 					flash.now[:error] =  ["Incorrect password."]
 					render :new
@@ -43,7 +37,7 @@ class SessionsController < ApplicationController
 		session[:user_id] = nil
 
 		respond_to do |format|
-			format.html { redirect_to tasks_url, notice: "You have been logged out." }
+			format.html { redirect_to root_url, notice: "You have been logged out." }
 		end
 	end
 end

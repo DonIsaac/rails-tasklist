@@ -1,7 +1,7 @@
 <%= semantic_form_for @user do |f| %>
 	<%= f.inputs do %>
 		<div class="form-group">
-		<%= f.input :login, label: false, input_html: { class: 'form-control', placeholder: ' Login' } %>
+		<%= f.input :login, label: false, input_html: { class: 'form-control', placeholder: ' Username' } %>
 		</div>
 		<div class="form-group">
 		<%= f.input :password, label: false, input_html: { class: 'form-control', placeholder: ' Password' } %>
@@ -19,5 +19,7 @@
 	<% end %>
 	<%= f.actions do  %>
 		<%= f.action :submit, button_html: { class: 'btn btn-primary btn-lg', style: 'padding: 7px' } %>
+		<br/>
+		<small>Already have an account? <a href="<%= new_session_path %>">Sign in</a>.</small>
 	<% end %>
 <% end %>
